@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getHabitaciones, createHabitacion, updateHabitacion, deleteHabitacion } = require('../controllers/habitacionesControllers');
+const { getHabitaciones, createHabitacion, updateHabitacion, deleteHabitacion, getHabitacionesOcupadas, checkoutHabitacion } = require('../controllers/habitacionesControllers');
 const Habitaciones = require('../models/habitacionesModel');
 
 // Obtenemos las habitaciones
@@ -21,6 +21,11 @@ router.get('/disponibles', async (req, res) => {
         res.status(500).json({ message: "Error al obtener habitaciones disponibles" });
     }
 });
+
+// Ruta para obtener habitaciones ocupadas
+router.get('/ocupadas', getHabitacionesOcupadas);
+
+router.put('/:numero/checkout', checkoutHabitacion);
 
 router.get('/:numero', async (req, res) => {
     const { numero } = req.params;

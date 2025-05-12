@@ -10,24 +10,37 @@ const getReservaciones = asyngHandler(async (req, res) => {
 });
 
 const createReservacion = asyngHandler(async (req, res) => {
-    console.log("Datos recibidos en el backend:", req.body); // Depuración
-
-    const { nombre, apellidos, telefono, noHabitacion, diaEntrada, diaSalida, horaEntrada, horaSalida, facturacion } = req.body;
+    const { nombre, apellidos, telefono, correo, noHabitacion, diaEntrada, diaSalida, horaEntrada, horaSalida, facturacion } = req.body;
 
     if (!nombre || !apellidos || !telefono || !noHabitacion || !diaEntrada || !diaSalida || !horaEntrada || !horaSalida) {
         res.status(400);
         throw new Error("Por favor, completa todos los campos obligatorios");
     }
 
+    // Obtener el precio de la habitación
+    const habitacion = await Habitaciones.findOne({ numero: noHabitacion });
+    if (!habitacion) {
+        res.status(404);
+        throw new Error("Habitación no encontrada");
+    }
+
+    // Calcular el costo total (ejemplo: precio por noche * número de noches)
+    const fechaEntrada = new Date(diaEntrada);
+    const fechaSalida = new Date(diaSalida);
+    const noches = Math.ceil((fechaSalida - fechaEntrada) / (1000 * 60 * 60 * 24)); // Diferencia en días
+    const costoTotal = habitacion.precio * noches;
+
     const reservaciones = await Reservaciones.create({
         nombre,
         apellidos,
         telefono,
+        correo, // Incluir el correo
         noHabitacion,
         diaEntrada,
         diaSalida,
         horaEntrada,
         horaSalida,
+        costoTotal, // Incluir el costo total
         facturacion
     });
 

@@ -70,5 +70,24 @@
         <h4 class="text-center">Porfavor seleccione la habitacion a hacer check-out</h4>
     </div>
 
+    <!--INPUT GROUP PARA LA INFORMACIÓN DE LA HABITACIÓN A HACER CHECK OUT-->
+    <div class="container d-flex justify-content-center">
+        <div class="p-5 border rounded shadow-lg bg-light" style="max-width: 800px; width: 100%;">
+            <form id="checkoutHabitaciónForm" method="PUT">
+                <div>
+                    <label class="input-group-text" for="noHabitacion">Habitaciones ocupadas</label>
+                    <select class="form-select" id="noHabitacion" name="habitacion" required>
+                        <option value="" selected>Seleccione una habitación</option>
+                    </select>
+                </div>
+                <br>
+                <button type="submit"class="btn btn-danger">Hacer check-out</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/Frontend/scripts/checkout.js"></script>
+
 </body>
 </html>
+``` 
