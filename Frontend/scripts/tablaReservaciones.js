@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <td>${reservacion.diaSalida}</td>
                 <td>${reservacion.horaEntrada}</td>
                 <td>${reservacion.horaSalida}</td>
-                <td>${reservacion.costoTotal || "N/A"}</td>
+                <td>$${reservacion.costoTotal}</td>
                 <td>${reservacion.facturacion ? "Sí" : "No"}</td>
                 <td>
                     <button class="btn btn-warning btn-sm editar" data-id="${reservacion._id}">Editar</button>

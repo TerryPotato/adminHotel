@@ -12,6 +12,7 @@ router.put('/', updateHabitacion);
 // Eliminamos una habitación
 router.delete('/', deleteHabitacion);
 
+
 // Obtener habitaciones disponibles con su precio
 router.get('/disponibles', async (req, res) => {
     try {

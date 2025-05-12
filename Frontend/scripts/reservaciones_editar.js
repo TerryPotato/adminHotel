@@ -57,6 +57,48 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Manejar el envío del formulario del modal para editar la reservación
+    modalForm.addEventListener("submit", async (event) => {
+        event.preventDefault(); // Evita que el formulario recargue la página
+
+        const reservacionEditada = {
+            nombre: document.getElementById("modalNombre").value,
+            apellidos: document.getElementById("modalApellidos").value,
+            telefono: document.getElementById("modalTelefono").value,
+            correo: document.getElementById("modalCorreo").value,
+            noHabitacion: document.getElementById("modalNoHabitacion").value,
+            diaEntrada: document.getElementById("modalFechaEntrada").value,
+            diaSalida: document.getElementById("modalFechaSalida").value,
+            horaEntrada: document.getElementById("modalHoraEntrada").value,
+            horaSalida: document.getElementById("modalHoraSalida").value,
+            costoTotal: document.getElementById("modalCostoTotal").value,
+            facturacion: document.getElementById("modalFacturacion").checked
+        };
+
+        try {
+            // Enviar los datos modificados al backend
+            const response = await fetch(`http://localhost:8000/api/reservaciones/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(reservacionEditada)
+            });
+
+            if (!response.ok) {
+                throw new Error("No se pudo actualizar la reservación");
+            }
+
+            alert("Reservación actualizada correctamente");
+
+            // Cerrar el modal
+            modal.hide();
+        } catch (error) {
+            console.error("Error al actualizar la reservación:", error);
+            alert("Hubo un problema al actualizar la reservación.");
+        }
+    });
+
     // Función para cargar habitaciones disponibles
     const cargarHabitacionesDisponibles = async () => {
         try {
@@ -79,9 +121,30 @@ document.addEventListener("DOMContentLoaded", () => {
                 option.textContent = `Habitación ${habitacion.numero}`;
                 selectHabitaciones.appendChild(option);
             });
+
+            // Agregar un evento para actualizar el costo total cuando se seleccione una habitación
+            selectHabitaciones.addEventListener("change", actualizarCostoTotal);
         } catch (error) {
             console.error("Error al cargar habitaciones disponibles:", error);
             alert("Hubo un problema al cargar las habitaciones disponibles.");
         }
     };
+
+    // Función para actualizar el costo total cuando se selecciona una habitación
+    const actualizarCostoTotal = () => {
+        const selectHabitaciones = document.getElementById("modalNoHabitacion");
+        const selectedOption = selectHabitaciones.options[selectHabitaciones.selectedIndex];
+        const precio = parseFloat(selectedOption.dataset.precio); // Obtener el precio de la habitación seleccionada
+
+        const fechaEntrada = new Date(document.getElementById("modalFechaEntrada").value);
+        const fechaSalida = new Date(document.getElementById("modalFechaSalida").value);
+        const noches = Math.ceil((fechaSalida - fechaEntrada) / (1000 * 60 * 60 * 24)); // Diferencia en días
+
+        const costoTotal = precio * noches;
+        document.getElementById("modalCostoTotal").value = costoTotal.toFixed(2); // Actualizar el costo total en el formulario
+    };
+
+    // Agregar eventos para recalcular el costo total cuando cambian las fechas
+    document.getElementById("modalFechaEntrada").addEventListener("change", actualizarCostoTotal);
+    document.getElementById("modalFechaSalida").addEventListener("change", actualizarCostoTotal);
 });

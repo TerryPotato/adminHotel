@@ -6,7 +6,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.3/minty/bootstrap.rtl.min.css" integrity="sha512-LjQR6Ce27It+hWd0rnKCmSyJCAh4xFArdak1pPgdWs6E/5QXGZAMLpZiOQS7xMU/dN/9QNSC7nSTQ9VTjKvowA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Tabla de reservaciones</title>
+    <link rel="stylesheet" href="/Frontend/assets/habitaciones.css">
+    <title>Habitaciones</title>
 </head>
 <body>
 
@@ -67,35 +68,20 @@
     <!--TITULO-->
     <div class="container">
         <br>
-        <h1 class="text-center">CONSULTAR RESERVACIONES</h1>
+        <h1 class="text-center">HABITACIONES</h1>
         <br>
-        <h4 class="text-center">Listado de todas las reservaciones creadas</h4>
+        <h4 class="text-center">Todas las habitaciones del hotel y sus propiedades</h4>
     </div>
 
-    <!--TABLA-->
-    <div class="container-fluid"></div>
-        <table id="reservaciones" class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Teléfono</th>
-                    <th>Correo</th>
-                    <th>No. de Habitación</th>
-                    <th>Dia de entrada</th>
-                    <th>Dia de salida</th>
-                    <th>Hora de entrada</th>
-                    <th>Hora de salida</th>
-                    <th>Costo</th>
-                    <th>Factura</th>
-                    <th>Acciones</th> <!--Agregar botones para editar y eliminar y que te mande al las pestañas respectivas, pero que ya tenga ingresado el id de que se selecciono-->
-                </tr>
-            </thead>
-        </table>
+    <div class="container_cards">
+        <div id="habitacionesContenedor" class="habitaciones-contenedor">
+            <!-- Las cards de las habitaciones se generarán aquí -->
+        </div>
     </div>
+    
 
-    <script src="/Frontend/scripts/tablaReservaciones.js"></script>
+<script src="/Frontend/scripts/habitaciones.js"></script>
+
     
 </body>
 </html>

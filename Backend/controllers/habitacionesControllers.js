@@ -2,46 +2,68 @@ const asyncHandler = require('express-async-handler');
 const Habitaciones = require('../models/habitacionesModel');
 
 const getHabitaciones = asyncHandler(async (req, res) => {
-    const habitaciones = await Habitaciones.find();
+    const habitaciones = await Habitaciones.find().sort({ numero: 1 });
     res.status(200).json({ habitaciones }); 
 });
 
+
+
 const createHabitacion = asyncHandler(async (req, res) => {
-    const {numero, tipo ,precio} = req.body;
+    const { numero, tipo, precio } = req.body;
+
+    // Validación de campos obligatorios
     if (!numero || !tipo || !precio) {
         res.status(400);
         throw new Error("Por favor, completa todos los campos obligatorios");
     }
 
+    // Validar si la habitación con el mismo número ya existe
+    const habitacionExistente = await Habitaciones.findOne({ numero });
+    if (habitacionExistente) {
+        res.status(400);
+        throw new Error("Ya existe una habitación con ese número");
+    }
+
+    // Crear la habitación
     const habitacion = await Habitaciones.create({
         numero,
         tipo,
         precio
     });
-    res.status(201).json({ 
-        mensaje: "Habitacion creada",
+
+    res.status(201).json({
+        mensaje: "Habitación creada",
         habitacion
     });
 });
+
 
 const updateHabitacion = asyncHandler(async (req, res) => {
     console.log("Datos recibidos en el backend:", req.body); // Depuración
 
     const { numero, tipo, precio } = req.body;
 
+    // Validación de campos obligatorios
     if (!numero || !tipo || !precio) {
         res.status(400);
         throw new Error("Por favor, completa todos los campos obligatorios");
     }
 
-    // Busca la habitación por número
+    // Verificar si la habitación existe
     const habitacion = await Habitaciones.findOne({ numero });
     if (!habitacion) {
         res.status(404);
         throw new Error("Habitación no encontrada");
     }
 
-    // Actualiza los datos de la habitación
+    // Verificar si hay otra habitación con el mismo número
+    const habitacionExistente = await Habitaciones.findOne({ numero });
+    if (habitacionExistente && habitacionExistente._id.toString() !== habitacion._id.toString()) {
+        res.status(400);
+        throw new Error("Ya existe una habitación con ese número");
+    }
+
+    // Actualizar los datos de la habitación
     habitacion.tipo = tipo;
     habitacion.precio = precio;
 
@@ -52,6 +74,7 @@ const updateHabitacion = asyncHandler(async (req, res) => {
         habitacion: habitacionActualizada
     });
 });
+
 
 const deleteHabitacion = asyncHandler(async (req, res) => {
     const {numero} = req.body;

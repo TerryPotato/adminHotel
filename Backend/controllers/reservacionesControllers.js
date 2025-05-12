@@ -1,15 +1,16 @@
-const asyngHandler = require('express-async-handler');
+const asyncHandler = require('express-async-handler'); // Corregido nombre
 const Reservaciones = require('../models/reservacionesModel');
-const Habitaciones = require('../models/habitacionesModel'); // Importar el modelo Habitaciones
+const Habitaciones = require('../models/habitacionesModel');
 const { createReadStream } = require('fs');
 
 // Obtener todas las reservaciones
-const getReservaciones = asyngHandler(async (req, res) => {
+const getReservaciones = asyncHandler(async (req, res) => {
     const reservaciones = await Reservaciones.find(); // Obtener todas las reservaciones
     res.status(200).json({ reservaciones }); // Devolver las reservaciones en formato JSON
 });
 
-const createReservacion = asyngHandler(async (req, res) => {
+// Crear una nueva reservación
+const createReservacion = asyncHandler(async (req, res) => {
     const { nombre, apellidos, telefono, correo, noHabitacion, diaEntrada, diaSalida, horaEntrada, horaSalida, facturacion } = req.body;
 
     if (!nombre || !apellidos || !telefono || !noHabitacion || !diaEntrada || !diaSalida || !horaEntrada || !horaSalida) {
@@ -41,7 +42,7 @@ const createReservacion = asyngHandler(async (req, res) => {
         horaEntrada,
         horaSalida,
         costoTotal, // Incluir el costo total
-        facturacion
+        facturacion // Verifica si se usa y si es necesario
     });
 
     // Actualizar la disponibilidad de la habitación
@@ -57,7 +58,7 @@ const createReservacion = asyngHandler(async (req, res) => {
 });
 
 // Obtener una reservación por ID
-const getReservacionById = asyngHandler(async (req, res) => {
+const getReservacionById = asyncHandler(async (req, res) => {
     const { id } = req.params;
 
     // Buscar la reservación por ID
@@ -72,9 +73,8 @@ const getReservacionById = asyngHandler(async (req, res) => {
 });
 
 // Eliminar una reservación por ID
-const deleteReservacion = asyngHandler(async (req, res) => {
+const deleteReservacion = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    console.log("ID recibido para eliminar:", id); // Depuración
 
     const reservacionEliminada = await Reservaciones.findByIdAndDelete(id);
 
@@ -91,9 +91,67 @@ const deleteReservacion = asyngHandler(async (req, res) => {
     res.status(200).json({ mensaje: `Reservación con ID ${id} eliminada exitosamente` });
 });
 
+const updateReservacion = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const { nombre, apellidos, telefono, correo, noHabitacion, diaEntrada, diaSalida, horaEntrada, horaSalida, facturacion } = req.body;
+
+    const reservacion = await Reservaciones.findById(id);
+    if (!reservacion) {
+        res.status(404);
+        throw new Error("Reservación no encontrada");
+    }
+
+    const habitacionNueva = await Habitaciones.findOne({ numero: noHabitacion });
+    if (!habitacionNueva) {
+        res.status(404);
+        throw new Error("Habitación no encontrada");
+    }
+
+    // Si cambió la habitación, liberar la anterior y ocupar la nueva
+    if (reservacion.noHabitacion !== noHabitacion) {
+        await Habitaciones.findOneAndUpdate(
+            { numero: reservacion.noHabitacion },
+            { disponibilidad: true }
+        );
+        await Habitaciones.findOneAndUpdate(
+            { numero: noHabitacion },
+            { disponibilidad: false }
+        );
+    }
+
+    // Calcular costo total
+    const fechaEntrada = new Date(diaEntrada);
+    const fechaSalida = new Date(diaSalida);
+    const noches = Math.ceil((fechaSalida - fechaEntrada) / (1000 * 60 * 60 * 24));
+    const costoTotal = habitacionNueva.precio * noches;
+
+    const reservacionActualizada = await Reservaciones.findByIdAndUpdate(id, {
+        nombre,
+        apellidos,
+        telefono,
+        correo,
+        noHabitacion,
+        diaEntrada,
+        diaSalida,
+        horaEntrada,
+        horaSalida,
+        costoTotal,
+        facturacion
+    }, { new: true });
+
+    res.status(200).json({
+        mensaje: "Reservación actualizada correctamente",
+        reservacion: reservacionActualizada
+    });
+});
+
+
+
+
 module.exports = {
     getReservaciones,
     createReservacion,
     getReservacionById,
-    deleteReservacion
+    deleteReservacion,
+    updateReservacion
 };
