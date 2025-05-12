@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.3/minty/bootstrap.rtl.min.css" integrity="sha512-LjQR6Ce27It+hWd0rnKCmSyJCAh4xFArdak1pPgdWs6E/5QXGZAMLpZiOQS7xMU/dN/9QNSC7nSTQ9VTjKvowA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar habitación</title>
+</head>
+<body>
+
+    <!--NAVBAR-->
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">AdminHotel</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Frontend/reservaciones/calendario.html">Calendario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Frontend/index.html">Nueva reservación</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Reservaciones
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/Frontend/reservaciones/tabla_reservaciones.html">Tabla</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Frontend/reservaciones/reservaciones_eliminar.html">Eliminar</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Frontend/reservaciones/reservaciones_editar.html">Editar</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Habitaciones
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/Frontend/reservaciones/checkout.html">Check Out</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Frontend/habitaciones/habitaciones_eliminar.html">Eliminar</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Frontend/habitaciones/habitaciones_editar.html">Editar</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Frontend/habitaciones/habitaciones_nueva.html">Nueva</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Buscar cliente" aria-label="Search"/>
+                    <button class="btn btn-light" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!--TITULO-->
+    <div class="container">
+        <br>
+        <h1 class="text-center">EDITAR HABITACIÓN</h1>
+        <br>
+        <h4 class="text-center">Por favor proporciona el número de habitación a editar</h4>
+    </div>
+    
+    <!-- INPUT GROUP PARA LA INFORMACIÓN DE LA HABITACIÓN A EDITAR -->
+    <div class="container d-flex justify-content-center">
+        <div class="p-5 border rounded shadow-lg bg-light" style="max-width: 800px; width: 100%;">
+            <form id="editarHabitaciónForm">
+                <div class="col-md-6">
+                    <label for="numero" class="form-label">Número</label>
+                    <input type="number" class="form-control" id="numero" name="numero" placeholder="Número de habitación" required>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-secondary">Editar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para editar los datos de la habitación -->
+    <div class="modal fade" id="editarHabitaciónModal" tabindex="-1" aria-labelledby="editarHabitaciónModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarHabitaciónModalLabel">Editar habitación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editarHabitaciónModalForm">
+                        <div class="mb-3">
+                            <label for="numero" class="form-label">Número</label>
+                            <input type="number" class="form-control" id="modalNumero" name="numero" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tipo" class="form-label">Tipo</label>
+                            <input type="text" class="form-control" id="modalTipo" name="tipo" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">$</span>
+                            <input type="text" class="form-control" id="modalPrecio" name="precio" required>
+                            <span class="input-group-text">.00</span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/Frontend/scripts/editarHabitación.js"></script>
+
+</body>
+</html>
+``` 

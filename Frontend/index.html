@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.3/minty/bootstrap.rtl.min.css" integrity="sha512-LjQR6Ce27It+hWd0rnKCmSyJCAh4xFArdak1pPgdWs6E/5QXGZAMLpZiOQS7xMU/dN/9QNSC7nSTQ9VTjKvowA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Frontend/assets/index_styles.css">
+    <title>Administración</title>
+</head>
+<body>
+    <!--En esta pagina se crean las reservaciones-->
+    <!--NAVBAR-->
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">AdminHotel</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Frontend/reservaciones/calendario.html">Calendario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Frontend/index.html">Nueva reservación</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Reservaciones
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/Frontend/reservaciones/tabla_reservaciones.html">Tabla</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Frontend/reservaciones/reservaciones_eliminar.html">Eliminar</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Frontend/reservaciones/reservaciones_editar.html">Editar</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Habitaciones
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/Frontend/reservaciones/checkout.html">Check Out</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Frontend/habitaciones/habitaciones_eliminar.html">Eliminar</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Frontend/habitaciones/habitaciones_editar.html">Editar</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Frontend/habitaciones/habitaciones_nueva.html">Nueva</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Buscar cliente" aria-label="Search"/>
+                    <button class="btn btn-light" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!--TITULO-->
+    <div class="container">
+        <br>
+        <h1 class="text-center">NUEVA RESERVACIÓN</h1>
+        <br>
+        <h4 class="text-center">Por favor proporciona la información para la reserva</h4>
+    </div>
+
+    <!--INPUT GROUP PARA LA INFORMACIÓN DE LA NUEVA RESERVACIÓN-->
+    <div class="container d-flex justify-content-center">
+        <div class="p-5 border rounded shadow-lg bg-light" style="max-width: 800px; width: 100%;">
+            <form id="reservationForm" action="/submit-reservation" method="POST">
+                <div class="mb-3 row">
+                    <div class="col-md-6">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del cliente" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos del cliente" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Teléfono del cliente" required>
+                </div>
+                <div class="mb-3">
+                    <label for="correo" class="form-label">Correo Electrónico</label>
+                    <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo electrónico del cliente">
+                </div>
+                <div>
+                    <label class="input-group-text" for="inputGroupSelect01">Habitaciones disponibles</label>
+                    <select class="form-select" id="noHabitacion" name="habitacion" required>
+                        <option value="" selected>Seleccione una habitación</option>
+                        <option value="1">101</option>
+                        <!--Implementación de la lógica para obtener habitaciones disponibles-->
+                    </select>
+                </div>
+                <br>
+                <div class="mb-5 d-flex justify-content-start align-items-center gap-3">
+                    <div>
+                        <label for="fecha_entrada" class="form-label">Fecha de entrada</label>
+                        <input type="date" class="form-control" id="fecha_entrada" name="fecha_entrada" required>
+                    </div>
+                    <div>
+                        <label for="fecha_salida" class="form-label">Fecha de salida</label>
+                        <input type="date" class="form-control" id="fecha_salida" name="fecha_salida" required>
+                    </div>
+                </div>
+                <div class="mb-5 d-flex justify-content-start align-items-center gap-3">
+                    <div>
+                        <label for="hora_entrada" class="form-label">Hora de entrada</label>
+                        <input type="time" class="form-control" id="hora_entrada" name="hora_entrada" required>
+                    </div>
+                    <div>
+                        <label for="hora_salida" class="form-label">Hora de salida</label>
+                        <input type="time" class="form-control" id="hora_salida" name="hora_salida" value="13:00" required>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text">$</span>
+                    <input type="text" class="form-control" id="costo_total" name="costo_total" readonly>
+                    <span class="input-group-text">.00</span>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" id="facturacion" name="facturar">
+                    <label class="form-check-label" for="checkDefault">
+                        El cliente desea facturar
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Reservar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Enlace al archivo JavaScript -->
+    <script src="scripts/index.js"></script>
+</body>
+</html>
