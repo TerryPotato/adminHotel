@@ -2,8 +2,9 @@
   "name": "adminhotel",
   "version": "1.0.0",
   "scripts": {
-    "start": "node backend/servers.js",
-    "server": "nodemon backend/servers.js"
+    "start": "node Backend/servers.js",
+    "server": "nodemon Backend/servers.js"
+
   },
   "keywords": [],
   "author": "",
