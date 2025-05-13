@@ -1,0 +1,82 @@
+.fondo_login {
+    width: 400px;
+    height: 450px;
+    background-color: brown;
+    padding-top: 20px;
+    margin: 50px auto;
+
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    box-shadow: -10px 10px 15px gray; /* Corrección de la sintaxis */
+}
+
+.fondo_signin {
+    width: 400px;
+    height: 520px;
+    background-color: brown;
+    padding-top: 20px;
+    margin: 50px auto;
+
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    box-shadow: -10px 10px 15px gray; /* Corrección de la sintaxis */
+}
+
+
+.titulo_login{
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    
+
+}
+
+.input_login{
+    font-size: 16px;
+    padding: 8px;
+    display: flex;
+    margin: 10px auto;
+}
+
+.label_login{
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    padding: 8px;
+    display: block;
+    margin: 15px;
+}
+
+.boton_login {
+    width: 180px; /* Un poco más ancho */
+    margin: 20px auto; /* Centrado horizontalmente */
+    font-size: 18px; /* Tamaño de fuente ajustado */
+    display: block;
+    background-color: #4CAF50; /* Color verde atractivo */
+    color: white; /* Texto blanco */
+    border: none; /* Sin bordes */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 10px 15px; /* Espaciado interno */
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra */
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+.boton_login:hover {
+    background-color: #45a049; /* Color verde más oscuro al pasar el mouse */
+    transform: translateY(-2px); /* Efecto de elevación */
+}
+
+.texto_login {
+    text-align: center; /* Centra el texto horizontalmente */
+    margin-top: 20px; /* Ajusta el margen superior */
+    font-size: 14px; /* Tamaño de fuente ajustado */
+}
+.texto_login a {
+    color: white; /* Cambia el color del enlace */
+    text-decoration: none; /* Elimina el subrayado */
+}
+.texto_login a:hover {
+    color: #ccc; /* Cambia el color al pasar el mouse (opcional) */
+}

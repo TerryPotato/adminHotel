@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 // Registrar rutas
 app.use("/api/habitaciones", require("./routes/habitacionesRoutes"));
 app.use("/api/reservaciones", require("./routes/reservacionesRoutes"));
+app.use("/api/usuarios", require("./routes/userRoutes"));
 
 // Ruta principal
 app.get("/", (req, res) => {
