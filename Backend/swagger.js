@@ -6,10 +6,10 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'API karina-backend',
+      title: 'API ',
       version: '1.0.0',
     },
-    servers: [{ url: 'hhttps://backendconpostman.onrender.com' }],
+    servers: [{ url: 'https://backendconpostman.onrender.com' }],
   },
   apis: ['./routes/.js', './models/.js'],
 };
