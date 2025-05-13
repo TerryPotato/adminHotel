@@ -126,5 +126,5 @@ module.exports = {
     updateHabitacion,
     deleteHabitacion,
     getHabitacionesOcupadas,
-    checkoutHabitacion // Exportar el nuevo controlador
+    checkoutHabitacion
 };
