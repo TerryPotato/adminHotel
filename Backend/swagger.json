@@ -1,415 +1,420 @@
 {
-  "openapi": "3.1.0",
+  "openapi": "3.0.0",
   "info": {
+    "title": "API de Hotel",
     "version": "1.0.0",
-    "title": "AdminHotel",
-    "description": ""
+    "description": "API para gestionar usuarios, habitaciones y reservaciones en el hotel"
   },
-  "host": "",
-  "basePath": "",
-  "tags": [
-    {
-      "name": "",
-      "description": ""
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
     }
-  ],
-  "securityDefinitions": {},
+  },
   "paths": {
-    "/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
+    "/usuarios/register": {
       "post": {
-        "description": "",
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
+        "summary": "Registrar un nuevo usuario",
+        "tags": ["Usuarios"],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "properties": {
-                  "numero": {
-                    "example": "any"
-                  },
-                  "tipo": {
-                    "example": "any"
-                  },
-                  "precio": {
-                    "example": "any"
-                  },
-                  "nombre": {
-                    "example": "any"
-                  },
-                  "apellidos": {
-                    "example": "any"
-                  },
-                  "telefono": {
-                    "example": "any"
-                  },
-                  "correo": {
-                    "example": "any"
-                  },
-                  "noHabitacion": {
-                    "example": "any"
-                  },
-                  "diaEntrada": {
-                    "example": "any"
-                  },
-                  "diaSalida": {
-                    "example": "any"
-                  },
-                  "horaEntrada": {
-                    "example": "any"
-                  },
-                  "horaSalida": {
-                    "example": "any"
-                  },
-                  "facturacion": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "numero": {
-                    "example": "any"
-                  },
-                  "tipo": {
-                    "example": "any"
-                  },
-                  "precio": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "numero": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/disponibles": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/ocupadas": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/{numero}/checkout": {
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "numero",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/{numero}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "numero",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "nombre": {
-                    "example": "any"
-                  },
-                  "apellidos": {
-                    "example": "any"
-                  },
-                  "telefono": {
-                    "example": "any"
-                  },
-                  "correo": {
-                    "example": "any"
-                  },
-                  "noHabitacion": {
-                    "example": "any"
-                  },
-                  "diaEntrada": {
-                    "example": "any"
-                  },
-                  "diaSalida": {
-                    "example": "any"
-                  },
-                  "horaEntrada": {
-                    "example": "any"
-                  },
-                  "horaSalida": {
-                    "example": "any"
-                  },
-                  "facturacion": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/register": {
-      "post": {
-        "description": "",
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
+                "required": ["username", "email", "password"],
                 "properties": {
                   "username": {
-                    "example": "any"
+                    "type": "string"
                   },
                   "email": {
-                    "example": "any"
+                    "type": "string",
+                    "format": "email"
                   },
                   "password": {
-                    "example": "any"
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuario creado exitosamente"
+          },
+          "400": {
+            "description": "El usuario ya existe o datos inválidos"
+          },
+          "500": {
+            "description": "Error al registrar el usuario"
+          }
+        }
+      }
+    },
+    "/usuarios/login": {
+      "post": {
+        "summary": "Iniciar sesión de un usuario",
+        "tags": ["Usuarios"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Inicio de sesión exitoso, se devuelve el token"
+          },
+          "401": {
+            "description": "Credenciales inválidas"
+          },
+          "500": {
+            "description": "Error al iniciar sesión"
+          }
+        }
+      }
+    },
+    "/usuarios/profile": {
+      "get": {
+        "summary": "Obtener el perfil del usuario (requiere autenticación)",
+        "tags": ["Usuarios"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Perfil del usuario"
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          },
+          "401": {
+            "description": "No autorizado (falta el token o es inválido)"
+          }
+        }
+      }
+    },
+    "/habitaciones": {
+      "get": {
+        "summary": "Obtener todas las habitaciones",
+        "tags": ["Habitaciones"],
+        "responses": {
+          "200": {
+            "description": "Lista de habitaciones disponibles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "tipo": {
+                        "type": "string"
+                      },
+                      "precio": {
+                        "type": "number",
+                        "format": "float"
+                      },
+                      "disponible": {
+                        "type": "boolean"
+                      }
+                    }
                   }
                 }
               }
             }
           }
         }
-      }
-    },
-    "/login": {
+      },
       "post": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
+        "summary": "Crear una nueva habitación",
+        "tags": ["Habitaciones"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["tipo", "precio", "disponible"],
+                "properties": {
+                  "tipo": {
+                    "type": "string"
+                  },
+                  "precio": {
+                    "type": "number",
+                    "format": "float"
+                  },
+                  "disponible": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
           }
         },
+        "responses": {
+          "201": {
+            "description": "Habitación creada exitosamente"
+          },
+          "400": {
+            "description": "Datos inválidos"
+          },
+          "500": {
+            "description": "Error al crear la habitación"
+          }
+        }
+      }
+    },
+    "/habitaciones/{id}": {
+      "get": {
+        "summary": "Obtener una habitación por ID",
+        "tags": ["Habitaciones"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Datos de la habitación",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "tipo": {
+                      "type": "string"
+                    },
+                    "precio": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "disponible": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Habitación no encontrada"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar los datos de una habitación",
+        "tags": ["Habitaciones"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "email": {
-                    "example": "any"
+                  "tipo": {
+                    "type": "string"
                   },
-                  "password": {
-                    "example": "any"
+                  "precio": {
+                    "type": "number",
+                    "format": "float"
+                  },
+                  "disponible": {
+                    "type": "boolean"
                   }
                 }
               }
             }
           }
+        },
+        "responses": {
+          "200": {
+            "description": "Habitación actualizada exitosamente"
+          },
+          "400": {
+            "description": "Datos inválidos"
+          },
+          "404": {
+            "description": "Habitación no encontrada"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una habitación",
+        "tags": ["Habitaciones"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Habitación eliminada exitosamente"
+          },
+          "404": {
+            "description": "Habitación no encontrada"
+          }
         }
       }
     },
-    "/profile": {
+    "/reservaciones": {
+      "post": {
+        "summary": "Crear una nueva reservación",
+        "tags": ["Reservaciones"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["habitacion_id", "usuario_id", "fecha_inicio", "fecha_fin"],
+                "properties": {
+                  "habitacion_id": {
+                    "type": "integer"
+                  },
+                  "usuario_id": {
+                    "type": "integer"
+                  },
+                  "fecha_inicio": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "fecha_fin": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Reservación creada exitosamente"
+          },
+          "400": {
+            "description": "Datos inválidos"
+          },
+          "500": {
+            "description": "Error al crear la reservación"
+          }
+        }
+      }
+    },
+    "/reservaciones/{id}": {
       "get": {
-        "description": "",
+        "summary": "Obtener una reservación por ID",
+        "tags": ["Reservaciones"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Datos de la reservación",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "habitacion_id": {
+                      "type": "integer"
+                    },
+                    "usuario_id": {
+                      "type": "integer"
+                    },
+                    "fecha_inicio": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "fecha_fin": {
+                      "type": "string",
+                      "format": "date"
+                    }
+                  }
+                }
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Reservación no encontrada"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una reservación",
+        "tags": ["Reservaciones"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Reservación eliminada exitosamente"
+          },
+          "404": {
+            "description": "Reservación no encontrada"
           }
         }
       }

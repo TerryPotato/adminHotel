@@ -91,6 +91,7 @@ const deleteReservacion = asyncHandler(async (req, res) => {
     res.status(200).json({ mensaje: `Reservación con ID ${id} eliminada exitosamente` });
 });
 
+// Actualizar una reservación por ID
 const updateReservacion = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { nombre, apellidos, telefono, correo, noHabitacion, diaEntrada, diaSalida, horaEntrada, horaSalida, facturacion } = req.body;
