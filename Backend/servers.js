@@ -3,6 +3,9 @@ const dotenv = require("dotenv");
 const colors = require("colors");
 const connectDB = require("./config/db");
 const cors = require("cors");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swagger");
+const outputFile = require('./swagger.json');
 
 // Cargar variables de entorno desde el archivo .env
 dotenv.config();
@@ -20,6 +23,7 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(outputFile));
 
 // Rutas API
 app.use("/api/habitaciones", require("./routes/habitacionesRoutes"));
