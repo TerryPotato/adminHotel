@@ -166,7 +166,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["tipo", "precio", "disponibilidad"],
+                "required": ["tipo", "precio", "disponibilidad", "numero"],
                 "properties": {
                   "numero": {
                     "type": "number"
