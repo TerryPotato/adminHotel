@@ -82,7 +82,7 @@ const getUserProfile = async (req, res) => {
 // Generar un token JWT
 const generateToken = (id) => {
     if (!id) {
-        throw new Error('El ID es undefined'); // Esto ayudará a depurar si el ID no se pasa correctamente
+        throw new Error('El ID es undefined'); 
     }
     return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: '30d'
