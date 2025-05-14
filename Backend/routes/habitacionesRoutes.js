@@ -7,7 +7,7 @@ const Habitaciones = require('../models/habitacionesModel');
 router.get('/', getHabitaciones);
 // Creamos una habitación
 router.post('/', createHabitacion);
-// Modificamos la disponibilidad de una habitación
+// Modificamos una habitación
 router.put('/', updateHabitacion);
 // Eliminamos una habitación
 router.delete('/', deleteHabitacion);
@@ -26,7 +26,11 @@ router.get('/disponibles', async (req, res) => {
 // Ruta para obtener habitaciones ocupadas
 router.get('/ocupadas', getHabitacionesOcupadas);
 
+// Ruta para hacer check-out de una habitación
+
 router.put('/:numero/checkout', checkoutHabitacion);
+
+// Ruta para obtener una habitación por número
 
 router.get('/:numero', async (req, res) => {
     const { numero } = req.params;

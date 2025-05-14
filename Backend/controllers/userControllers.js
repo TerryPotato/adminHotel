@@ -22,7 +22,7 @@ const registerUser = async (req, res) => {
             password: hashedPassword
         });
 
-        console.log('Usuario creado:', user); // Esto imprimirá el usuario creado en la terminal
+        console.log('Usuario creado:', user);
     
         if (user) {
             res.status(201).json({
@@ -57,7 +57,7 @@ const loginUser = async (req, res) => {
                 token: generateToken(user._id) // Generar un token JWT
             });
         } else {
-            res.status(401).json({ message: 'Credenciales inválidas' }); // Error de autenticación
+            res.status(401).json({ message: 'Credenciales inválidas' });
         }
     } catch (error) {
         res.status(500).json({ message: 'Error al iniciar sesión', error: error.message });
@@ -89,4 +89,8 @@ const generateToken = (id) => {
     });
 };
 
-module.exports = { registerUser, loginUser, getUserProfile };
+module.exports = { 
+    registerUser, 
+    loginUser, 
+    getUserProfile 
+};

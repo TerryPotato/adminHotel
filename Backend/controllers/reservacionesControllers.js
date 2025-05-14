@@ -13,6 +13,7 @@ const getReservaciones = asyncHandler(async (req, res) => {
 const createReservacion = asyncHandler(async (req, res) => {
     const { nombre, apellidos, telefono, correo, noHabitacion, diaEntrada, diaSalida, horaEntrada, horaSalida, facturacion } = req.body;
 
+    //Datos obligatorios
     if (!nombre || !apellidos || !telefono || !noHabitacion || !diaEntrada || !diaSalida || !horaEntrada || !horaSalida) {
         res.status(400);
         throw new Error("Por favor, completa todos los campos obligatorios");
@@ -25,7 +26,7 @@ const createReservacion = asyncHandler(async (req, res) => {
         throw new Error("Habitación no encontrada");
     }
 
-    // Calcular el costo total (ejemplo: precio por noche * número de noches)
+    // Calcular el costo total (precio por noche * número de noches)
     const fechaEntrada = new Date(diaEntrada);
     const fechaSalida = new Date(diaSalida);
     const noches = Math.ceil((fechaSalida - fechaEntrada) / (1000 * 60 * 60 * 24)); // Diferencia en días
@@ -35,14 +36,14 @@ const createReservacion = asyncHandler(async (req, res) => {
         nombre,
         apellidos,
         telefono,
-        correo, // Incluir el correo
+        correo,
         noHabitacion,
         diaEntrada,
         diaSalida,
         horaEntrada,
         horaSalida,
-        costoTotal, // Incluir el costo total
-        facturacion // Verifica si se usa y si es necesario
+        costoTotal,
+        facturacion
     });
 
     // Actualizar la disponibilidad de la habitación
@@ -123,6 +124,8 @@ const updateReservacion = asyncHandler(async (req, res) => {
     // Calcular costo total
     const fechaEntrada = new Date(diaEntrada);
     const fechaSalida = new Date(diaSalida);
+    //Multiplicamos por 1000 para convertir a milisegundos
+    // y luego dividimos por 60*60*24 para convertir a días :l
     const noches = Math.ceil((fechaSalida - fechaEntrada) / (1000 * 60 * 60 * 24));
     const costoTotal = habitacionNueva.precio * noches;
 
