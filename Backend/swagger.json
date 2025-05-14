@@ -245,6 +245,92 @@
         }
       }
     },
+    "/api/habitaciones/disponibles": {
+      "get": {
+        "summary": "Obtener habitaciones disponibles",
+        "tags": ["Habitaciones"],
+        "responses": {
+          "200": {
+            "description": "Lista de habitaciones disponibles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "numero": { "type": "integer" },
+                      "precio": { "type": "number", "format": "float" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": { "description": "Error al obtener habitaciones disponibles" }
+        }
+      }
+    },
+    "/api/habitaciones/ocupadas": {
+      "get": {
+        "summary": "Obtener habitaciones ocupadas",
+        "tags": ["Habitaciones"],
+        "responses": {
+          "200": {
+            "description": "Lista de habitaciones ocupadas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "numero": { "type": "integer" },
+                      "tipo": { "type": "string" },
+                      "precio": { "type": "number", "format": "float" },
+                      "disponibilidad": { "type": "boolean" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": { "description": "Error al obtener habitaciones ocupadas" }
+        }
+      }
+    },
+    "/api/habitaciones/{numero}/checkout": {
+      "put": {
+        "summary": "Realizar check-out de una habitación",
+        "tags": ["Habitaciones"],
+        "parameters": [
+          {
+            "name": "numero",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" },
+            "description": "Número de la habitación"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Check-out realizado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensaje": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "404": { "description": "Habitación no encontrada" },
+          "500": { "description": "Error al realizar el check-out" }
+        }
+      }
+    },
     "/api/reservaciones": {
       "get": {
         "summary": "Obtener todas las reservaciones",
