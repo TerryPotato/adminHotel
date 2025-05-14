@@ -169,7 +169,7 @@
         }
       }
     },
-    "/api/habitaciones/{numero}": {
+    "/api/habitaciones/": {
       "get": {
         "summary": "Obtener una habitación por número",
         "tags": ["Habitaciones"],
@@ -204,14 +204,6 @@
       "put": {
         "summary": "Actualizar una habitación",
         "tags": ["Habitaciones"],
-        "parameters": [
-          {
-            "name": "numero",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer" }
-          }
-        ],
         "requestBody": {
           "required": true,
           "content": {
