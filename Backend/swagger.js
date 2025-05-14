@@ -1,31 +1,24 @@
-const swaggerAutogen = require('swagger-autogen')({ openapi: '3.1.0' });
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
-const doc = {
-  info: {
-    version: '', // by default: "1.0.0"
-    title: 'AdminHotel', // by default: "REST API"
-    description: '', // by default: ""
-  },
-  host: '', // by default: "localhost:3000"
-  basePath: '', // by default: "/"
-  schemes: [], // by default: ['http']
-  consumes: [], // by default: ['application/json']
-  produces: [], // by default: ['application/json']
-  tags: [
-    // by default: empty Array
-    {
-      name: '', // Tag name
-      description: '', // Tag description
+
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'API ',
+      version: '1.0.0',
     },
-    // { ... }
-  ],
-  securityDefinitions: {}, // by default: empty object
-  definitions: {}, // by default: empty object
+    servers: [{ url: 'https://backendconpostman.onrender.com' }],
+  },
+  apis: ['./routes/.js', './models/.js'],
 };
 
-const outputFile = './swagger.json';
-const routes = ['./routes/*.js', './models/*.js'];
+const swaggerSpec = swaggerJSDoc(options);
 
-/* NOTE: If you are using the express Router, you must pass in the 'routes' only the 
-root file where the route starts, such as index.js, app.js, routes.js, etc ... */
+function setupSwagger(app) {
+  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+}
+
+module.exports = setupSwagger;
 
