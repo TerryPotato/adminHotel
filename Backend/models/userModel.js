@@ -9,14 +9,14 @@ const userSchema = mongoose.Schema({
     email: {
         type: String,
         required: [true, "El correo electrónico es obligatorio"],
-        unique: true, // No se permiten duplicados
+        unique: true,
     },
     password: {
         type: String,
         required: [true, "La contraseña es obligatoria"],
     }
 }, {
-    timestamps: true // Agrega createdAt y updatedAt automáticamente
+    timestamps: true
 });
 
 // Método para comparar contraseñas

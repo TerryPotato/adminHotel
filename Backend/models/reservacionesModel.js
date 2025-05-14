@@ -13,7 +13,7 @@ const reservacionesSchema = mongoose.Schema(
         horaEntrada: { type: String, required: true },
         horaSalida: { type: String, required: true },
         costoTotal: { type: Number, required: true },
-        facturacion: { type: Boolean, default: false },
+        facturacion: { type: Boolean, default: false }, // Campo opcional, por default false
     },
     {
         timestamps: true,
