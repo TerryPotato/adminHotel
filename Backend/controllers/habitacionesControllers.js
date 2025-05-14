@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const Habitaciones = require('../models/habitacionesModel');
 
+//obtiene todas las habitaciones y las ordena por numero
 const getHabitaciones = asyncHandler(async (req, res) => {
     const habitaciones = await Habitaciones.find().sort({ numero: 1 });
     res.status(200).json({ habitaciones }); 
