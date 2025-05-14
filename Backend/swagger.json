@@ -198,11 +198,11 @@
     },
     "/api/habitaciones/{id}": {
       "get": {
-        "summary": "Obtener una habitación por ID",
+        "summary": "Obtener una habitación por numero de hbaitacion",
         "tags": ["Habitaciones"],
         "parameters": [
           {
-            "name": "id",
+            "name": "numero",
             "in": "path",
             "required": true,
             "schema": {
