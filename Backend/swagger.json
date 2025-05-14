@@ -166,8 +166,11 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["tipo", "precio", "disponible"],
+                "required": ["tipo", "precio", "disponibilidad"],
                 "properties": {
+                  "numero": {
+                    "type": "number"
+                  },
                   "tipo": {
                     "type": "string"
                   },
@@ -175,7 +178,7 @@
                     "type": "number",
                     "format": "float"
                   },
-                  "disponible": {
+                  "disponibilidad": {
                     "type": "boolean"
                   }
                 }
