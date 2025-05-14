@@ -12,14 +12,13 @@
         "scheme": "bearer",
         "bearerFormat": "JWT"
       }
-    },
-     "servers": [
+    }
+  },
+  "servers": [
     {
       "url": "https://backendconpostman.onrender.com"
     }
-  ]
-
-  },
+  ],
   "paths": {
     "/api/usuarios/register": {
       "post": {
@@ -33,31 +32,18 @@
                 "type": "object",
                 "required": ["username", "email", "password"],
                 "properties": {
-                  "username": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string",
-                    "format": "email"
-                  },
-                  "password": {
-                    "type": "string"
-                  }
+                  "username": { "type": "string" },
+                  "email": { "type": "string", "format": "email" },
+                  "password": { "type": "string" }
                 }
               }
             }
           }
         },
         "responses": {
-          "201": {
-            "description": "Usuario creado exitosamente"
-          },
-          "400": {
-            "description": "El usuario ya existe o datos inválidos"
-          },
-          "500": {
-            "description": "Error al registrar el usuario"
-          }
+          "201": { "description": "Usuario creado exitosamente" },
+          "400": { "description": "El usuario ya existe o datos inválidos" },
+          "500": { "description": "Error al registrar el usuario" }
         }
       }
     },
@@ -73,15 +59,8 @@
                 "type": "object",
                 "required": ["email", "password"],
                 "properties": {
-                  "email": {
-                    "type": "string",
-                    "format": "email",
-                    "example": "user@example.com"
-                  },
-                  "password": {
-                    "type": "string",
-                    "example": "string"
-                  }
+                  "email": { "type": "string", "format": "email", "example": "user@example.com" },
+                  "password": { "type": "string", "example": "string" }
                 }
               }
             }
@@ -95,30 +74,47 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "_id": {
-                      "type": "string"
-                    },
-                    "username": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string",
-                      "format": "email"
-                    },
-                    "token": {
-                      "type": "string"
-                    }
+                    "_id": { "type": "string" },
+                    "username": { "type": "string" },
+                    "email": { "type": "string", "format": "email" },
+                    "token": { "type": "string" }
                   }
                 }
               }
             }
           },
-          "401": {
-            "description": "Credenciales inválidas"
+          "401": { "description": "Credenciales inválidas" },
+          "500": { "description": "Error al iniciar sesión" }
+        }
+      }
+    },
+    "/api/usuarios/profile": {
+      "get": {
+        "summary": "Obtener el perfil del usuario",
+        "tags": ["Usuarios"],
+        "security": [
+          { "bearerAuth": [] }
+        ],
+        "responses": {
+          "200": {
+            "description": "Perfil del usuario",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": { "type": "string" },
+                    "username": { "type": "string" },
+                    "email": { "type": "string", "format": "email" },
+                    "createdAt": { "type": "string", "format": "date-time" },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                  }
+                }
+              }
+            }
           },
-          "500": {
-            "description": "Error al iniciar sesión"
-          }
+          "401": { "description": "No autorizado" },
+          "500": { "description": "Error al obtener el perfil del usuario" }
         }
       }
     },
@@ -128,7 +124,7 @@
         "tags": ["Habitaciones"],
         "responses": {
           "200": {
-            "description": "Lista de habitaciones disponibles",
+            "description": "Lista de habitaciones",
             "content": {
               "application/json": {
                 "schema": {
@@ -136,19 +132,10 @@
                   "items": {
                     "type": "object",
                     "properties": {
-                      "id": {
-                        "type": "integer"
-                      },
-                      "tipo": {
-                        "type": "string"
-                      },
-                      "precio": {
-                        "type": "number",
-                        "format": "float"
-                      },
-                      "disponible": {
-                        "type": "boolean"
-                      }
+                      "numero": { "type": "integer" },
+                      "tipo": { "type": "string" },
+                      "precio": { "type": "number", "format": "float" },
+                      "disponibilidad": { "type": "boolean" }
                     }
                   }
                 }
@@ -166,95 +153,63 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["tipo", "precio", "numero"],
+                "required": ["numero", "tipo", "precio"],
                 "properties": {
-                  "numero": {
-                    "type": "number"
-                  },
-                  "tipo": {
-                    "type": "string"
-                  },
-                  "precio": {
-                    "type": "number",
-                    "format": "float"
-                  },
-                  "disponibilidad": {
-                    "type": "boolean"
-                  }
+                  "numero": { "type": "integer" },
+                  "tipo": { "type": "string" },
+                  "precio": { "type": "number", "format": "float" }
                 }
               }
             }
           }
         },
         "responses": {
-          "201": {
-            "description": "Habitación creada exitosamente"
-          },
-          "400": {
-            "description": "Datos inválidos"
-          },
-          "500": {
-            "description": "Error al crear la habitación"
-          }
+          "201": { "description": "Habitación creada exitosamente" },
+          "400": { "description": "Datos inválidos" }
         }
       }
     },
-    "/api/habitaciones/{id}": {
+    "/api/habitaciones/{numero}": {
       "get": {
-        "summary": "Obtener una habitación por numero de hbaitacion",
+        "summary": "Obtener una habitación por número",
         "tags": ["Habitaciones"],
         "parameters": [
           {
             "name": "numero",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            "schema": { "type": "integer" }
           }
         ],
         "responses": {
           "200": {
-            "description": "Datos de la habitación",
+            "description": "Detalles de la habitación",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "id": {
-                      "type": "integer"
-                    },
-                    "tipo": {
-                      "type": "string"
-                    },
-                    "precio": {
-                      "type": "number",
-                      "format": "float"
-                    },
-                    "disponible": {
-                      "type": "boolean"
-                    }
+                    "numero": { "type": "integer" },
+                    "tipo": { "type": "string" },
+                    "precio": { "type": "number", "format": "float" },
+                    "disponibilidad": { "type": "boolean" }
                   }
                 }
               }
             }
           },
-          "404": {
-            "description": "Habitación no encontrada"
-          }
+          "404": { "description": "Habitación no encontrada" }
         }
       },
       "put": {
-        "summary": "Actualizar los datos de una habitación",
+        "summary": "Actualizar una habitación",
         "tags": ["Habitaciones"],
         "parameters": [
           {
-            "name": "id",
+            "name": "numero",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            "schema": { "type": "integer" }
           }
         ],
         "requestBody": {
@@ -264,34 +219,16 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "numero": {
-                    "type": "number"
-                  },
-                  "tipo": {
-                    "type": "string"
-                  },
-                  "precio": {
-                    "type": "number",
-                    "format": "float"
-                  },
-                  "disponible": {
-                    "type": "boolean"
-                  }
+                  "tipo": { "type": "string" },
+                  "precio": { "type": "number", "format": "float" }
                 }
               }
             }
           }
         },
         "responses": {
-          "200": {
-            "description": "Habitación actualizada exitosamente"
-          },
-          "400": {
-            "description": "Datos inválidos"
-          },
-          "404": {
-            "description": "Habitación no encontrada"
-          }
+          "200": { "description": "Habitación actualizada exitosamente" },
+          "404": { "description": "Habitación no encontrada" }
         }
       },
       "delete": {
@@ -299,25 +236,51 @@
         "tags": ["Habitaciones"],
         "parameters": [
           {
-            "name": "id",
+            "name": "numero",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            "schema": { "type": "integer" }
           }
         ],
         "responses": {
-          "204": {
-            "description": "Habitación eliminada exitosamente"
-          },
-          "404": {
-            "description": "Habitación no encontrada"
-          }
+          "204": { "description": "Habitación eliminada exitosamente" },
+          "404": { "description": "Habitación no encontrada" }
         }
       }
     },
     "/api/reservaciones": {
+      "get": {
+        "summary": "Obtener todas las reservaciones",
+        "tags": ["Reservaciones"],
+        "responses": {
+          "200": {
+            "description": "Lista de reservaciones",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "nombre": { "type": "string" },
+                      "apellidos": { "type": "string" },
+                      "telefono": { "type": "string" },
+                      "correo": { "type": "string" },
+                      "noHabitacion": { "type": "integer" },
+                      "diaEntrada": { "type": "string", "format": "date" },
+                      "diaSalida": { "type": "string", "format": "date" },
+                      "horaEntrada": { "type": "string", "format": "time" },
+                      "horaSalida": { "type": "string", "format": "time" },
+                      "costoTotal": { "type": "number", "format": "float" },
+                      "facturacion": { "type": "boolean" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "post": {
         "summary": "Crear una nueva reservación",
         "tags": ["Reservaciones"],
@@ -327,37 +290,26 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["habitacion_id", "usuario_id", "fecha_inicio", "fecha_fin"],
+                "required": ["nombre", "apellidos", "telefono", "noHabitacion", "diaEntrada", "diaSalida", "horaEntrada", "horaSalida"],
                 "properties": {
-                  "habitacion_id": {
-                    "type": "integer"
-                  },
-                  "usuario_id": {
-                    "type": "integer"
-                  },
-                  "fecha_inicio": {
-                    "type": "string",
-                    "format": "date"
-                  },
-                  "fecha_fin": {
-                    "type": "string",
-                    "format": "date"
-                  }
+                  "nombre": { "type": "string" },
+                  "apellidos": { "type": "string" },
+                  "telefono": { "type": "string" },
+                  "correo": { "type": "string" },
+                  "noHabitacion": { "type": "integer" },
+                  "diaEntrada": { "type": "string", "format": "date" },
+                  "diaSalida": { "type": "string", "format": "date" },
+                  "horaEntrada": { "type": "string", "format": "time" },
+                  "horaSalida": { "type": "string", "format": "time" },
+                  "facturacion": { "type": "boolean" }
                 }
               }
             }
           }
         },
-        "/api/responses": {
-          "201": {
-            "description": "Reservación creada exitosamente"
-          },
-          "400": {
-            "description": "Datos inválidos"
-          },
-          "500": {
-            "description": "Error al crear la reservación"
-          }
+        "responses": {
+          "201": { "description": "Reservación creada exitosamente" },
+          "400": { "description": "Datos inválidos" }
         }
       }
     },
@@ -370,44 +322,34 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
           "200": {
-            "description": "Datos de la reservación",
+            "description": "Detalles de la reservación",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "id": {
-                      "type": "integer"
-                    },
-                    "habitacion_id": {
-                      "type": "integer"
-                    },
-                    "usuario_id": {
-                      "type": "integer"
-                    },
-                    "fecha_inicio": {
-                      "type": "string",
-                      "format": "date"
-                    },
-                    "fecha_fin": {
-                      "type": "string",
-                      "format": "date"
-                    }
+                    "nombre": { "type": "string" },
+                    "apellidos": { "type": "string" },
+                    "telefono": { "type": "string" },
+                    "correo": { "type": "string" },
+                    "noHabitacion": { "type": "integer" },
+                    "diaEntrada": { "type": "string", "format": "date" },
+                    "diaSalida": { "type": "string", "format": "date" },
+                    "horaEntrada": { "type": "string", "format": "time" },
+                    "horaSalida": { "type": "string", "format": "time" },
+                    "costoTotal": { "type": "number", "format": "float" },
+                    "facturacion": { "type": "boolean" }
                   }
                 }
               }
             }
           },
-          "404": {
-            "description": "Reservación no encontrada"
-          }
+          "404": { "description": "Reservación no encontrada" }
         }
       },
       "delete": {
@@ -418,18 +360,50 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "integer"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
-          "204": {
-            "description": "Reservación eliminada exitosamente"
-          },
-          "404": {
-            "description": "Reservación no encontrada"
+          "204": { "description": "Reservación eliminada exitosamente" },
+          "404": { "description": "Reservación no encontrada" }
+        }
+      },
+      "put": {
+        "summary": "Actualizar una reservación",
+        "tags": ["Reservaciones"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
           }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": { "type": "string" },
+                  "apellidos": { "type": "string" },
+                  "telefono": { "type": "string" },
+                  "correo": { "type": "string" },
+                  "noHabitacion": { "type": "integer" },
+                  "diaEntrada": { "type": "string", "format": "date" },
+                  "diaSalida": { "type": "string", "format": "date" },
+                  "horaEntrada": { "type": "string", "format": "time" },
+                  "horaSalida": { "type": "string", "format": "time" },
+                  "facturacion": { "type": "boolean" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Reservación actualizada exitosamente" },
+          "404": { "description": "Reservación no encontrada" }
         }
       }
     }
