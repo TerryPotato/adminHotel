@@ -88,36 +88,7 @@
         }
       }
     },
-    "/api/usuarios/profile": {
-      "get": {
-        "summary": "Obtener el perfil del usuario",
-        "tags": ["Usuarios"],
-        "security": [
-          { "bearerAuth": [] }
-        ],
-        "responses": {
-          "200": {
-            "description": "Perfil del usuario",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "_id": { "type": "string" },
-                    "username": { "type": "string" },
-                    "email": { "type": "string", "format": "email" },
-                    "createdAt": { "type": "string", "format": "date-time" },
-                    "updatedAt": { "type": "string", "format": "date-time" }
-                  }
-                }
-              }
-            }
-          },
-          "401": { "description": "No autorizado" },
-          "500": { "description": "Error al obtener el perfil del usuario" }
-        }
-      }
-    },
+
     "/api/habitaciones": {
       "get": {
         "summary": "Obtener todas las habitaciones",
