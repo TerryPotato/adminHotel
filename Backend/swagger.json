@@ -264,6 +264,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "numero": {
+                    "type": "number"
+                  },
                   "tipo": {
                     "type": "string"
                   },
