@@ -9,7 +9,7 @@ const options = {
       title: 'API ',
       version: '1.0.0',
     },
-    servers: [{ url: 'https://backendconpostman.onrender.com' }],
+    servers: [{ url: 'http://localhost:8000/api' }],
   },
   apis: ['./routes/.js', './models/.js'],
 };
