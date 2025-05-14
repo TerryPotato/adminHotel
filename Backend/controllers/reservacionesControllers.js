@@ -3,6 +3,14 @@ const Reservaciones = require('../models/reservacionesModel');
 const Habitaciones = require('../models/habitacionesModel');
 const { createReadStream } = require('fs');
 
+// Función para calcular el costo total
+const calcularCostoTotal = (precioPorNoche, diaEntrada, diaSalida) => {
+    const fechaEntrada = new Date(diaEntrada);
+    const fechaSalida = new Date(diaSalida);
+    const noches = Math.ceil((fechaSalida - fechaEntrada) / (1000 * 60 * 60 * 24)); // Diferencia en días
+    return precioPorNoche * noches;
+};
+
 // Obtener todas las reservaciones
 const getReservaciones = asyncHandler(async (req, res) => {
     const reservaciones = await Reservaciones.find(); // Obtener todas las reservaciones
@@ -26,11 +34,8 @@ const createReservacion = asyncHandler(async (req, res) => {
         throw new Error("Habitación no encontrada");
     }
 
-    // Calcular el costo total (precio por noche * número de noches)
-    const fechaEntrada = new Date(diaEntrada);
-    const fechaSalida = new Date(diaSalida);
-    const noches = Math.ceil((fechaSalida - fechaEntrada) / (1000 * 60 * 60 * 24)); // Diferencia en días
-    const costoTotal = habitacion.precio * noches;
+    // Calcular el costo total
+    const costoTotal = calcularCostoTotal(habitacion.precio, diaEntrada, diaSalida);
 
     const reservaciones = await Reservaciones.create({
         nombre,
@@ -122,12 +127,7 @@ const updateReservacion = asyncHandler(async (req, res) => {
     }
 
     // Calcular costo total
-    const fechaEntrada = new Date(diaEntrada);
-    const fechaSalida = new Date(diaSalida);
-    //Multiplicamos por 1000 para convertir a milisegundos
-    // y luego dividimos por 60*60*24 para convertir a días :l
-    const noches = Math.ceil((fechaSalida - fechaEntrada) / (1000 * 60 * 60 * 24));
-    const costoTotal = habitacionNueva.precio * noches;
+    const costoTotal = calcularCostoTotal(habitacionNueva.precio, diaEntrada, diaSalida);
 
     const reservacionActualizada = await Reservaciones.findByIdAndUpdate(id, {
         nombre,
@@ -148,9 +148,6 @@ const updateReservacion = asyncHandler(async (req, res) => {
         reservacion: reservacionActualizada
     });
 });
-
-
-
 
 module.exports = {
     getReservaciones,
