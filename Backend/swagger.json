@@ -226,14 +226,19 @@
       "delete": {
         "summary": "Eliminar una habitación",
         "tags": ["Habitaciones"],
-        "parameters": [
-          {
-            "name": "numero",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "integer" }
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "numero": { "type": "integer" }
+                }
+              }
+            }
           }
-        ],
+        },
         "responses": {
           "204": { "description": "Habitación eliminada exitosamente" },
           "404": { "description": "Habitación no encontrada" }
