@@ -12,7 +12,13 @@
         "scheme": "bearer",
         "bearerFormat": "JWT"
       }
+    },
+     "servers": [
+    {
+      "url": "https://backendconpostman.onrender.com"
     }
+  ]
+
   },
   "paths": {
     "/usuarios/register": {
